@@ -5,6 +5,7 @@ import axios from 'axios';
 const fetchDeviceInfo = async({ queryKey }) => {
     const [_key, access_token, brand_info] = queryKey;
 
+
     const url =
         `${import.meta.env.VITE_API_BASE_URL}/device-info/brand/${brand_info}`; // fallback to all devices
 

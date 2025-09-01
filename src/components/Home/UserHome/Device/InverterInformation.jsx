@@ -3,12 +3,15 @@ import useAuth from "../../../../hooks/useAuth";
 import { DeviceInformationData } from "../../../../data/DeviceInformationData";
 
 export default function InverterInformation() {
-     const select_brand = JSON.parse(localStorage.getItem("selectedBrand"));
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { data, isLoading } = DeviceInformationData(user?.access, select_brand?.id);
+  const { data, isLoading } = DeviceInformationData(
+    user?.access,
+    user?.custom_user_id
+  );
 
   if (isLoading) return <p>Loading...</p>;
+  console.log(data)
   if (!data || data.length === 0) return <p>No device information found.</p>;
   console.log(data)
   const handleBack = () => navigate(-1);
@@ -49,7 +52,7 @@ export default function InverterInformation() {
               <p>KWp</p>
             </div>
             <NavLink
-              to="/device/device-address"
+              to="/device/add-inverter"
               className="text-3xl text-gray-400 font-bold"
             >
               &gt;

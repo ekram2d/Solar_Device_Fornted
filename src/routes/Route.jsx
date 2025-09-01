@@ -16,6 +16,14 @@ import InverterInformation from "../components/Home/UserHome/Device/InverterInfo
 import AddInverter from "../components/Home/UserHome/Device/AddInverter";
 import InputDeviceAddress from "../components/Home/UserHome/Device/InputDeviceAddress";
 import UserSign from "../components/Home/UserHome/UserSign";
+import ConfirmDeviceInformation from "../components/Home/UserHome/Device/ConfirmDeviceInformation";
+import FinalSubmit from "../components/Home/UserHome/Device/FinalSubmit";
+import AdminMain from "../layouts/AdminMain";
+import AdminHome from "../components/Admin/AdminNavbar/AdminHome";
+import PrivateRouteAdmin from "../components/Authentications/PrivateRoute/PrivateRouteAdmin";
+import UserInfo from "../components/Admin/AdminNavbar/UserInfo";
+import UserBankInfo from "../components/Admin/AdminNavbar/UserBankInfo/UserBankInfo";
+import BrandInfo from "../components/Admin/BrandInfo/BrandInfo";
 
 export const router = createBrowserRouter([
   {
@@ -69,6 +77,10 @@ export const router = createBrowserRouter([
             element: <InverterInformation></InverterInformation>,
           },
           {
+            path: "/device/add-inverter",
+            element: <AddInverter></AddInverter>,
+          },
+          {
             path: "/device/device-address",
             element: <InputDeviceAddress></InputDeviceAddress>,
           },
@@ -76,23 +88,42 @@ export const router = createBrowserRouter([
             path: "/device/sign",
             element: <UserSign></UserSign>,
           },
+          {
+            path: "/device/confirm",
+            element: <ConfirmDeviceInformation></ConfirmDeviceInformation>,
+          },
+          {
+            path: "/device/final",
+            element: <FinalSubmit></FinalSubmit>,
+          },
         ],
       },
+    ],
+  },
+  {
+    path: "/admin",
+    element: (
+      <PrivateRouteAdmin>
+        <AdminMain />
+      </PrivateRouteAdmin>
+    ),
+    errorElement: <ErrorPage />,
+    children: [
       {
-        path: "/device",
-        element: <DeviceMain />,
-        errorElement: <ErrorPage />,
-        //   children: [
-        //     // {
-        //     //   index: true,
-        //     //   element: <Home />,
-        //     // },
-        //     // Add more nested device routes here as needed
-        //     {
-        //       path: "/device/device-information",
-        //       element: <DeviceInformation/>,
-        //     },
-        //   ],
+        path: "/admin",
+        element: <AdminHome></AdminHome>,
+      },
+      {
+        path: "/admin/user-info",
+        element: <UserInfo></UserInfo>,
+      },
+      {
+        path: "/admin/user-bank",
+        element: <UserBankInfo></UserBankInfo>
+      },
+      {
+        path: "/admin/brand-info",
+        element: <BrandInfo></BrandInfo>
       },
     ],
   },

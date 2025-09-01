@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import useAuth from "../../../../hooks/useAuth";
+import { DeviceInformationData } from "../../../../data/DeviceInformationData";
 
 export default function InputDeviceAddress() {
   const navigate = useNavigate();
@@ -20,15 +21,20 @@ export default function InputDeviceAddress() {
     reset,
     formState: { errors },
   } = useForm();
+  const { data, isLoading, refetch } = DeviceInformationData(
+    user?.access,
+    user?.custom_user_id
+  );
 
+  if (isLoading) return <p>Loading...</p>;
+  console.log(data)
 const onSubmit = async (formData) => {
     try {
       
-
-      const payload = {
-        ...formData,
-
-      };
+const payload = {
+  ...formData,
+  device:data[0]?.id, // pick from localStorage or first device
+};
    
 
       const res = await axios.post(
@@ -54,9 +60,12 @@ const onSubmit = async (formData) => {
   };
 
   const confirm = () => {
-	if(device_address){
-    // navigate("#");} // <-- Change this to your actual confirmation route
-  };
+
+   setTimeout(() => {
+     navigate("/device/sign");
+   }, 1000);
+    // <-- Change this to your actual confirmation route
+  
 }
 
   const handleBack = () => navigate(-1);

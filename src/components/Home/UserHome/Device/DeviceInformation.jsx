@@ -58,7 +58,9 @@ export default function DeviceInformation() {
       console.log("Response:", res.data);
 
       reset(); // clear form
-      navigate("/device/inverter-information"); // navigate to next page if needed
+      setTimeout(() => {
+        navigate("/device/inverter-information");
+      }, 1000); // navigate to next page if needed
     } catch (err) {
       console.error("Error:", err.response?.data || err.message);
       toast.error(err.response?.data?.error || "❌ Failed to register device.");
